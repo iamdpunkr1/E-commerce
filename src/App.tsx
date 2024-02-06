@@ -1,16 +1,15 @@
 
 import './App.css'
+import Sizes from './components/Sizes'
 
 function App() {
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Welcome to React with TypeScript
-        </p>
-      </header>
-    </div>
+    <main className='max-w-[1200px] mx-auto my-28'>
+      <div className='flex gap-4'>
+        <Sizes/>
+      </div>
+    </main>
   )
 }
 
