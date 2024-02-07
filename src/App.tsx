@@ -1,5 +1,6 @@
 
 import './App.css'
+import Products from './components/Products'
 import Sizes from './components/Sizes'
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <main className='max-w-[1200px] mx-auto my-28 p-4'>
       <div className='flex gap-4'>
         <Sizes/>
+        <Products/>
       </div>
     </main>
   )
