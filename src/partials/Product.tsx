@@ -33,7 +33,7 @@ const Product = () => {
       </h2>
       <button
         className="w-full bg-gray-900  text-white py-3  mt-4"
-        style={buttonStyle} // Apply dynamic button style
+        style={buttonStyle} 
       >
         Add to cart
       </button>

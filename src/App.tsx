@@ -1,16 +1,18 @@
 
 import './App.css'
+import Cart from './components/Cart'
 import Products from './components/Products'
 import Sizes from './components/Sizes'
 
 function App() {
 
   return (
-    <main className='max-w-[1200px] mx-auto my-28 p-4'>
-      <div className='flex justify-center flex-wrap md:flex-nowrap lg:flex-nowrap gap-4'>
+    <main className='relative'>
+      <div className='max-w-[1200px] mx-auto p-4 flex justify-center flex-wrap md:flex-nowrap lg:flex-nowrap gap-4 py-16'>
         <Sizes/>
-        <Products/>
+        <Products/> 
       </div>
+      <Cart/>
     </main>
   )
 }
