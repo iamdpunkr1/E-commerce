@@ -1,38 +1,53 @@
 
 import { useState } from "react";
+import CartIcon from "../partials/CartIcon";
+// import model1Cart from "../assets/model1Cart.webp"
+import CartItem from "../partials/CartItem";
 
 const Cart = () => {
   const [show, setShow] = useState(false);
 
 
   return (
-    <div className={`absolute w-full h-full md:w-[450px] lg:w-[450px] bg-gray-800 top-0 right-0 transition all duration-300 ease-in ${show?"translate-x-0":"translate-x-full"}`}>
+    <div  className={`fixed ocerflow-hidden h-dvh flex flex-col w-full md:w-[450px] lg:w-[450px] bg-gray-800 top-0 right-0 transition all duration-300 ease-in ${show?"translate-x-0":"translate-x-full"}`}>
+        {/* MENU Bar */}
         <div onClick={()=> setShow(!show)} className=" bg-gray-800 py-2 px-2 text-white relative top-0 -left-12 cursor-pointer">
            
            {
             !show ? 
-            <>
-            <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g id="SVGRepo_bgCarrier" strokeWidth={0} />
-                <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
-                <g id="SVGRepo_iconCarrier">
-                    {" "}
-                    <path
-                    d="M7.2998 5H22L20 12H8.37675M21 16H9L7 3H4M4 8H2M5 11H2M6 14H2M10 20C10 20.5523 9.55228 21 9 21C8.44772 21 8 20.5523 8 20C8 19.4477 8.44772 19 9 19C9.55228 19 10 19.4477 10 20ZM21 20C21 20.5523 20.5523 21 20 21C19.4477 21 19 20.5523 19 20C19 19.4477 19.4477 19 20 19C20.5523 19 21 19.4477 21 20Z"
-                    stroke="#ffffff"
-                    strokeWidth={2}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    />{" "}
-                </g>
-            </svg>
-            <div className="absolute top-7 left-7 rounded-full w-5 h-5 flex justify-center items-center text-[11px] font-semibold text-black bg-amber-400 inline-block">
-                2
-            </div>
-            </>: <div className="font-semibold hover:bg-slate-900 px-2 inline-block translate-x-12 md:translate-x-0 lg:translate-x-0">X</div>
+            <CartIcon/> 
+            : <div className="font-semibold hover:bg-slate-900 px-2 inline-block translate-x-12 md:translate-x-0 lg:translate-x-0">X</div>
            }
             
         </div>
+
+        {/* Cart Items*/}
+        <div className="overflow-y-scroll px-4 ">
+           <div className="flex justify-center items-center gap-4 mb-8">
+            <CartIcon/> <h1 className="font-bold text-white text-xl">Cart</h1>
+           </div>
+           
+           <CartItem/>
+           <CartItem/>
+           <CartItem/>
+           <CartItem/>
+           <CartItem/>
+           <CartItem/>
+           <CartItem/>
+           <CartItem/>
+           <CartItem/>
+        </div>
+        <div className="checkout w-full h-48 absolute bottom-0  bg-gray-800 text-white px-4 flex flex-col justify-between py-4">
+            <div className="flex justify-between items-center py-4">
+                <h1 className="uppercase font-normal text-xl text-gray-500">Subtotal</h1>
+                <div className="flex flex-col">
+                    <h2 className="text-amber-400 text-2xl self-end">$ 13.25</h2>
+                    <h3 className="uppercase font-normal text-xl text-gray-500">or up to 9 x $ 12.3</h3>
+                </div>
+            </div>
+            <button className="w-full bg-gray-900 p-4 rounded-md">Checkout</button>
+        </div>
+        
     </div>
   )
 }
