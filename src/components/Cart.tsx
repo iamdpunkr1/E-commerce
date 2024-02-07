@@ -8,6 +8,10 @@ const Cart = () => {
   return (
     <div className={`absolute w-full h-full md:w-[450px] lg:w-[450px] bg-gray-800 top-0 right-0 transition all duration-300 ease-in ${show?"translate-x-0":"translate-x-full"}`}>
         <div onClick={()=> setShow(!show)} className=" bg-gray-800 py-2 px-2 text-white relative top-0 -left-12 cursor-pointer">
+           
+           {
+            !show ? 
+            <>
             <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" strokeWidth={0} />
                 <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
@@ -22,9 +26,12 @@ const Cart = () => {
                     />{" "}
                 </g>
             </svg>
-            <div className="absolute top-7 left-7 rounded-full w-5 h-5 flex justify-center items-center text-[11px] font-extralight text-black bg-amber-400 inline-block">
+            <div className="absolute top-7 left-7 rounded-full w-5 h-5 flex justify-center items-center text-[11px] font-semibold text-black bg-amber-400 inline-block">
                 2
             </div>
+            </>: <div className="font-semibold hover:bg-slate-900 px-2 inline-block translate-x-12 md:translate-x-0 lg:translate-x-0">X</div>
+           }
+            
         </div>
     </div>
   )
