@@ -16,7 +16,7 @@ const Product = ({id,title, isFreeShipping, sku, price, installments, availableS
   };
 
   // Define the image source based on hover state
-  const imageSource = isHovered ? `/src/static/products/${sku}-2-product.webp` : `/src/static/products/${sku}-1-product.webp`;
+  const imageSource = isHovered ? `/static/products/${sku}-2-product.webp` : `/static/products/${sku}-1-product.webp`;
 
   const handleClick = () => {
 
