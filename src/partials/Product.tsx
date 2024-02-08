@@ -2,9 +2,11 @@ import  {  useState } from "react";
 import { IProduct } from "../context/ProductContext";
 
 
-const Product = ({title, isFreeShipping, sku, price, ...rest}: IProduct) => {
-  const [isHovered, setIsHovered] = useState(false);
+const Product = ({title, isFreeShipping, sku, price, installments, ...rest}: IProduct) => {
 
+  const [isHovered, setIsHovered] = useState(false);
+  // Splitting the price into dollars and cents
+  const [dollars, cents] = price.toString().split(".");
   const buttonStyle = {
     backgroundColor: isHovered ? "#ff9900" : "#333", // Change button color when hovered
   };
@@ -29,11 +31,14 @@ const Product = ({title, isFreeShipping, sku, price, ...rest}: IProduct) => {
       <p className="text-center mt-4 text-sm">{title}</p>
       <div className="w-6 h-[2px] bg-amber-500 my-2"></div>
       <h1>
-        $ <span className="font-bold text-2xl">{price}</span>.45
+        $ <span className="font-bold text-2xl">{dollars}</span>.{cents}
       </h1>
+      {installments !== 0 ?
       <h2 className="text-gray-500">
-        or 5 x<span className="font-bold">$5.89</span>
+        or {installments} x<span className="font-bold">${(price/installments).toFixed(2)}</span>
       </h2>
+      : <h2 className="my-3"></h2>
+      }
       <button
         className="w-full bg-gray-900  text-white py-3  mt-4"
         style={buttonStyle} 
