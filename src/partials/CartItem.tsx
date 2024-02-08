@@ -11,7 +11,7 @@ const CartItem = () => {
     <div className="min-h-[130px] flex justify-between items-center gap-2 py-4 border-t-2 border-slate-900">
             
     <div className="flex items-center gap-x-4">
-       <img src={model1Cart} alt="item1" className="w-1/4 "/>
+       <img src={model1Cart} alt="item1" className="w-1/5 "/>
        
        <div className="">
        <h1 className="text-white">Basic Cactus White T-shirt</h1>
