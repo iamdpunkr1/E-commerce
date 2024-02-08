@@ -47,7 +47,7 @@ const CartContextProvider = ({ children }: ChildProps) => {
 
         cartItems.forEach(item => {
             totalPrice += item.price * item.quantity;
-            totalInstallments += item.installments * item.quantity;
+            totalInstallments = Math.max(item.installments,totalInstallments);
             totalQuantities += item.quantity;
         });
 
