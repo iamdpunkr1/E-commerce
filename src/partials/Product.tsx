@@ -1,9 +1,13 @@
-import  {  useState } from "react";
+import  {  useContext, useState } from "react";
 import { IProduct } from "../context/ProductContext";
+import { CartContext } from "../context/CartContext";
 
 
-const Product = ({title, isFreeShipping, sku, price, installments, ...rest}: IProduct) => {
+const Product = ({id,title, isFreeShipping, sku, price, installments, availableSizes,style}: IProduct) => {
+  
+  const {cartItems, setCartItems} = useContext(CartContext);
 
+ 
   const [isHovered, setIsHovered] = useState(false);
   // Splitting the price into dollars and cents
   const [dollars, cents] = price.toString().split(".");
@@ -13,6 +17,14 @@ const Product = ({title, isFreeShipping, sku, price, installments, ...rest}: IPr
 
   // Define the image source based on hover state
   const imageSource = isHovered ? `/src/static/products/${sku}-2-product.webp` : `/src/static/products/${sku}-1-product.webp`;
+
+  const handleClick = () => {
+
+    const itemInCart = cartItems.find(c => c.id === id)
+    if(itemInCart) setCartItems(cartItems.map(c => c.id===id? { ...c, quantity: c.quantity+1}: c))
+    else setCartItems([...cartItems, {id, title, sku, price, installments, availableSizes, style, quantity:1}])
+    
+  }
 
   return (
     <div
@@ -40,6 +52,7 @@ const Product = ({title, isFreeShipping, sku, price, installments, ...rest}: IPr
       : <h2 className="my-3"></h2>
       }
       <button
+        onClick={handleClick}
         className="w-full bg-gray-900  text-white py-3  mt-4"
         style={buttonStyle} 
       >
