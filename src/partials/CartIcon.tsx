@@ -1,5 +1,5 @@
 
-const CartIcon = () => {
+const CartIcon = ({totalItems}:{totalItems:number}) => {
   return (
     <div className="relative">
             <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +17,7 @@ const CartIcon = () => {
                 </g>
             </svg>
             <div className="absolute top-5 left-5 rounded-full w-5 h-5 flex justify-center items-center text-[11px] font-semibold text-black bg-amber-400 inline-block">
-                2
+                {totalItems}
             </div>
             </div>
   )

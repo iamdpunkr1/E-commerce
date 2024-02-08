@@ -1,21 +1,22 @@
 
-import { useState } from "react";
+import { useContext} from "react";
 import CartIcon from "../partials/CartIcon";
-// import model1Cart from "../assets/model1Cart.webp"
 import CartItem from "../partials/CartItem";
+import { CartContext } from "../context/CartContext";
 
 const Cart = () => {
-  const [show, setShow] = useState(false);
+  
+  const {isOpen, setIsOpen, cartItems} = useContext(CartContext)
 
 
   return (
-    <div  className={`fixed ocerflow-hidden h-dvh flex flex-col w-full md:w-[450px] lg:w-[450px] bg-gray-800 top-0 right-0 transition all duration-300 ease-in ${show?"translate-x-0":"translate-x-full"}`}>
+    <div  className={`fixed ocerflow-hidden h-dvh flex flex-col w-full md:w-[450px] lg:w-[450px] bg-gray-800 top-0 right-0 transition all duration-300 ease-in ${isOpen?"translate-x-0":"translate-x-full"}`}>
         {/* MENU Bar */}
-        <div onClick={()=> setShow(!show)} className=" bg-gray-800 py-2 px-2 text-white relative top-0 -left-12 cursor-pointer">
+        <div onClick={()=> setIsOpen(!isOpen)} className=" bg-gray-800 py-2 px-2 text-white relative top-0 -left-12 cursor-pointer">
            
            {
-            !show ? 
-            <CartIcon/> 
+            !isOpen ? 
+            <CartIcon totalItems={cartItems.length || 0}/> 
             : <div className="font-semibold hover:bg-slate-900 px-2 inline-block translate-x-12 md:translate-x-0 lg:translate-x-0">X</div>
            }
             
@@ -24,18 +25,10 @@ const Cart = () => {
         {/* Cart Items*/}
         <div className="overflow-y-scroll px-4 ">
            <div className="flex justify-center items-center gap-4 mb-8">
-            <CartIcon/> <h1 className="font-bold text-white text-xl">Cart</h1>
+            <CartIcon totalItems={cartItems.length || 0}/> <h1 className="font-bold text-white text-xl">Cart</h1>
            </div>
+           {cartItems && cartItems.map(item => <CartItem key={item.id} {...item} />)}
            
-           <CartItem/>
-           <CartItem/>
-           <CartItem/>
-           <CartItem/>
-           <CartItem/>
-           <CartItem/>
-           <CartItem/>
-           <CartItem/>
-           <CartItem/>
         </div>
         <div className="checkout w-full h-48 absolute bottom-0  bg-gray-800 text-white px-4 flex flex-col justify-between py-4">
             <div className="flex justify-between items-center py-4">

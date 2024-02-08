@@ -5,10 +5,10 @@ import { CartContext } from "../context/CartContext";
 
 const Product = ({id,title, isFreeShipping, sku, price, installments, availableSizes,style}: IProduct) => {
   
-  const {cartItems, setCartItems} = useContext(CartContext);
-
- 
+  const {cartItems, setCartItems, setIsOpen} = useContext(CartContext);
   const [isHovered, setIsHovered] = useState(false);
+
+
   // Splitting the price into dollars and cents
   const [dollars, cents] = price.toString().split(".");
   const buttonStyle = {
@@ -23,6 +23,8 @@ const Product = ({id,title, isFreeShipping, sku, price, installments, availableS
     const itemInCart = cartItems.find(c => c.id === id)
     if(itemInCart) setCartItems(cartItems.map(c => c.id===id? { ...c, quantity: c.quantity+1}: c))
     else setCartItems([...cartItems, {id, title, sku, price, installments, availableSizes, style, quantity:1}])
+
+    setIsOpen(true);
     
   }
 

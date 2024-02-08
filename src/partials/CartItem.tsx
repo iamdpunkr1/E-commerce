@@ -1,7 +1,9 @@
-import { useState } from "react";
-import model1Cart from "../assets/model1Cart.webp"
+import { useContext, useState } from "react";
+import { CartContext, CartProduct } from "../context/CartContext";
 
-const CartItem = () => {
+const CartItem = ({id, title, sku, price, availableSizes,style, quantity}:CartProduct) => {
+    const {increaseQuantity, decreaseQuantity} = useContext(CartContext);
+
     const [isHovered, setIsHovered] = useState(false);
 
     // Define the styles for the SVG
@@ -11,12 +13,12 @@ const CartItem = () => {
     <div className="min-h-[130px] flex justify-between items-center gap-2 py-4 border-t-2 border-slate-900">
             
     <div className="flex items-center gap-x-4">
-       <img src={model1Cart} alt="item1" className="w-1/5 "/>
+       <img src={`/src/static/products/${sku}-1-cart.webp`} alt="item1" className="w-1/5 "/>
        
        <div className="">
-       <h1 className="text-white">Basic Cactus White T-shirt</h1>
-       <h2 className="text-gray-400">S | Wine</h2>
-       <h2 className="text-gray-400">Quantity: 1</h2>
+       <h1 className="text-white">{title}</h1>
+       <h2 className="text-gray-400">{availableSizes[0]} | {style}</h2>
+       <h2 className="text-gray-400">Quantity: {quantity}</h2>
        </div>
     </div>
     
@@ -34,10 +36,10 @@ const CartItem = () => {
             </g>
         </svg>
         </button>
-       <h2 className="text-amber-400">$ 13.25</h2>
+       <h2 className="text-amber-400">$ {price}</h2>
        <div className="flex justify-end text-white">
-           <button className="px-2 bg-gray-600">-</button>
-           <button className="px-2 bg-gray-700">+</button>
+           <button onClick={()=> decreaseQuantity(id)} className="px-2 bg-gray-600 hover:bg-gray-800">-</button>
+           <button  onClick={()=> increaseQuantity(id)} className="px-2 bg-gray-700 hover:bg-gray-800">+</button>
        </div>
     </div>
   </div>
