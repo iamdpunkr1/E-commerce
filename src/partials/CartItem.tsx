@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { CartContext, CartProduct } from "../context/CartContext";
 
 const CartItem = ({id, title, sku, price, availableSizes,style, quantity}:CartProduct) => {
-    const {increaseQuantity, decreaseQuantity} = useContext(CartContext);
+    const {increaseQuantity, decreaseQuantity, deleteCartItem} = useContext(CartContext);
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -24,7 +24,7 @@ const CartItem = ({id, title, sku, price, availableSizes,style, quantity}:CartPr
     
 
     <div className="flex flex-col gap-4 text-right ">
-        <button className="self-end" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+        <button onClick={()=> deleteCartItem(id)} className="self-end" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         <svg className="w-5 h-5" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" >
             <g id="SVGRepo_bgCarrier" strokeWidth={0} />
             <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
