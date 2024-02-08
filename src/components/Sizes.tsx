@@ -3,6 +3,7 @@ import SizeButtons from "../partials/SizeButtons"
 const arr: string[] = ["XS", "S", "M", "L", "XL", "XXL"]
 
 const Sizes = () => {
+  
   return (
     <aside className="mb-8">
           <h2 className='font-bold text-lg '>Sizes:</h2>

@@ -20,10 +20,15 @@ type ChildProps = {
 }
 
 type ProductContextProps = {
-    products: IProduct[],
+    // products: IProduct[],
+    filteredProducts: IProduct[],
     loading : boolean,
-    error: string
+    error: string,
+    sizes: string[],
+    setSizes:(sizes: string[])=> void
 }
+
+
 export const ProductContext = createContext({} as ProductContextProps)
 
 const ProductContextProvider = ({children}: ChildProps) =>{ 
@@ -31,6 +36,8 @@ const ProductContextProvider = ({children}: ChildProps) =>{
     const [products, setProducts] = useState<IProduct[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("")
+    const [sizes, setSizes] = useState<string[]>([]);
+    const [filteredProducts, setFilteredProducts] = useState<IProduct[]>([])
 
     useEffect(()=>{
         const fetchProducts = async () => {
@@ -51,8 +58,35 @@ const ProductContextProvider = ({children}: ChildProps) =>{
         fetchProducts();
     },[])
 
+    useEffect(() => {
+
+        const filterFunction = () => {
+            setLoading(true);
+            if (sizes.length > 0) {
+                
+                // console.log("products:", products);
+                const filterProducts = products.filter(p =>
+                    sizes.some(s => p.availableSizes.includes(s))
+                );
+                // console.log(filterProducts);
+                setFilteredProducts(filterProducts);
+                
+                 // You need to set the filtered products state
+            } else {
+                setLoading(true);
+                // console.log("NOT FOUND");
+                setFilteredProducts([...products]); // Reset filtered products when sizes array is empty
+            }
+            setLoading(false);
+        }
+
+        filterFunction();
+
+    }, [sizes, products]);
+    
+
     return (
-        <ProductContext.Provider value={{products, loading, error}}>
+        <ProductContext.Provider value={{filteredProducts, loading, error, sizes, setSizes}}>
             {children}
         </ProductContext.Provider>
     )
