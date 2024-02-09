@@ -16,8 +16,6 @@ const Product = ({id,title, isFreeShipping, sku, price, installments, availableS
     backgroundColor: isHovered ? "#ff9900" : "#333", // Change button color when hovered
   };
 
-  // Define the image source based on hover state
-  // const imageSource = isHovered ? `../assets/products/${sku}-2-product.webp` : `../assets/products/${sku}-1-product.webp`;
 
   const handleClick = () => {
 

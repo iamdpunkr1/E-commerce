@@ -1,20 +1,31 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext, CartProduct } from "../context/CartContext";
 
 const CartItem = ({id, title, sku, price, availableSizes,style, quantity}:CartProduct) => {
     const {increaseQuantity, decreaseQuantity, deleteCartItem} = useContext(CartContext);
+    const [imageSource, setImageSource] = useState<string>("")
 
     const [isHovered, setIsHovered] = useState(false);
 
     // Define the styles for the SVG
     const svgStyle =  isHovered ? "#FFFFFF" : "#000000"; // Change SVG color when hovered
+    
+  useEffect(()=>{
+    async function getProductImage() {
+      const imageUrl = await import(`../assets/products/${sku}-1-cart.webp`);
+
+      setImageSource(imageUrl.default)
+    }
+
+    getProductImage();
+
+  },[sku])
 
   return (
     <div className="min-h-[130px] flex justify-between items-center gap-2 py-4 border-t-2 border-slate-900">
             
     <div className="flex items-center gap-x-4">
-       <img src={`/src/static/products/${sku}-1-cart.webp`} alt="item1" className="w-1/5 "/>
-       
+       <img src={imageSource} alt="item1" className="w-1/5 "/>
        <div className="">
        <h1 className="text-white">{title}</h1>
        <h2 className="text-gray-400">{availableSizes[0]} | {style}</h2>
