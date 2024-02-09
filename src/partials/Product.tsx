@@ -1,4 +1,4 @@
-import  {  useContext, useState } from "react";
+import  {  useContext, useEffect, useState } from "react";
 import { IProduct } from "../context/ProductContext";
 import { CartContext } from "../context/CartContext";
 
@@ -7,6 +7,7 @@ const Product = ({id,title, isFreeShipping, sku, price, installments, availableS
   
   const {cartItems, setCartItems, setIsOpen} = useContext(CartContext);
   const [isHovered, setIsHovered] = useState(false);
+  const [imageSource, setImageSource] = useState<string[]>([]);
 
 
   // Splitting the price into dollars and cents
@@ -16,7 +17,7 @@ const Product = ({id,title, isFreeShipping, sku, price, installments, availableS
   };
 
   // Define the image source based on hover state
-  const imageSource = isHovered ? `/src/assets/products/${sku}-2-product.webp` : `/src/assets/products/${sku}-1-product.webp`;
+  // const imageSource = isHovered ? `../assets/products/${sku}-2-product.webp` : `../assets/products/${sku}-1-product.webp`;
 
   const handleClick = () => {
 
@@ -27,6 +28,18 @@ const Product = ({id,title, isFreeShipping, sku, price, installments, availableS
     setIsOpen(true);
     
   }
+
+  useEffect(()=>{
+    async function getProductImage() {
+      const imageUrl = await import(`../assets/products/${sku}-2-product.webp`);
+      const imageUrl2 = await import(`../assets/products/${sku}-1-product.webp`);
+
+      setImageSource([imageUrl.default, imageUrl2.default])
+    }
+
+    getProductImage();
+
+  },[sku])
 
   return (
     <div
@@ -40,8 +53,8 @@ const Product = ({id,title, isFreeShipping, sku, price, installments, availableS
         Free Shipping
       </div>
       }
-
-      <img src={imageSource} alt="Model1" className="w-full min-h-[270px]" />
+      
+      <img src={isHovered? imageSource[0]: imageSource[1]} alt="Model1" className="w-full min-h-[270px]" />
       <p className="text-center mt-4 text-sm">{title}</p>
       <div className="w-6 h-[2px] bg-amber-500 my-2"></div>
       <h1>
